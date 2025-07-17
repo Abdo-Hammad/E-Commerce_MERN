@@ -4,7 +4,7 @@
   import { IProduct } from"./productModel";
   
   const CartStatusEnum = ["active", "completed"]
-  export interface ICartItem extends Document {
+  export interface ICartItem  {
   product: IProduct;
   unitPrice: number;
   quantity: number;
@@ -34,13 +34,3 @@ const cartSchema = new Schema<ICart>({
 }) 
 
 export const cartModel =  mongoose.model<ICart>("Cart", cartSchema)
-
-
-
-
-
-
-
-
-
-
