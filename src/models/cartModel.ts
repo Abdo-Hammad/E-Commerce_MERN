@@ -5,6 +5,7 @@
   
   const CartStatusEnum = ["active", "completed"]
   export interface ICartItem  {
+  poridyct: any;
   product: IProduct;
   unitPrice: number;
   quantity: number;
