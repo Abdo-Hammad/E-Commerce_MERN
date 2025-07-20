@@ -45,7 +45,7 @@ return { data: "Incorrect emmail or password!", statusCode: 400}
 }
 
 const generateJWT = (data: any ) => {
-  return jwt.sign(data, 'oK9KVC4XRXFcRLHFr1nwwT88akws49i')
+  return jwt.sign(data, process.env.JWT_SECRET ||'')
 }
 
 
