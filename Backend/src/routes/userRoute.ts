@@ -11,7 +11,7 @@ router.post("/register", async (request, response) =>
 {
 const {firstName, lastName, email, password } = request.body;
 const {statusCode, data } = await register ({ firstName, lastName, email, password });
-response.status(statusCode).send(data)
+response.status(statusCode).json(data)
 }); 
 
   
@@ -19,7 +19,7 @@ response.status(statusCode).send(data)
    
   const { email, password } = request.body;
   const { statusCode, data } = await login({email, password})
-  response.status(statusCode).send(data)
+  response.status(statusCode).json(data)
 })
              
 export default router;
