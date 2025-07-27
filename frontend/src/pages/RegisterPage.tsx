@@ -5,21 +5,30 @@
 import TextField   from "@mui/material/TextField";
 import  Button from "@mui/material/Button";
 import { useRef, useState } from "react";
+import { useAuth } from "../context/Auth/AuthContext";
 
  const RegisterPage = () =>{
     const [error, setError] = useState("")
     const firstNameRef = useRef <HTMLInputElement>(null);
     const  lastNameRef = useRef <HTMLInputElement>(null);
-      const emailRef = useRef <HTMLInputElement>(null);
-      const passwordRef = useRef <HTMLInputElement>(null);
+    const emailRef = useRef <HTMLInputElement>(null);
+    const passwordRef = useRef <HTMLInputElement>(null);
+    
 
       const onSubmit = async   () => { 
          // eslint-disable-next-line react-hooks/rules-of-hooks
-          
+           const  {login} = useAuth();  
+         
+    
         const firstName =  firstNameRef.current?.value;
         const lastName = lastNameRef.current?.value;
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
+         if (!firstName || !lastName || !email || !password) {
+          setError("Incorrect token")
+
+   return;
+}
 
          const response = await fetch('${BASE_URL}/user/register', {
     method: "POST",
@@ -39,8 +48,15 @@ import { useRef, useState } from "react";
     setError("Unable to register user, please try defferent credientials!");
     return;
 }
-    const data = await response.json();
-   
+    const token = await response.json();
+        if(!token) {
+
+     setError("Incorrect token")
+     return;
+  }
+    login(email, token)
+
+     
   };
    return ( 
    <Container> 

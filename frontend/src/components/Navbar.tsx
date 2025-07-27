@@ -17,7 +17,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
-  
+
+   const { username, token } = useAuth();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
  
