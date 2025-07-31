@@ -4,15 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
- 
+import Menu from '@mui/material/Menu'; 
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
- 
+import Avatar from '@mui/material/Avatar'; 
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Button, Grid } from '@mui/material';
+import ShoppingCart from "@mui/icons.material/ShoppingCart";
+import { Badge, Button, colors, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
  
@@ -44,7 +43,12 @@ function Navbar() {
        handleCloseUserMenu()
     };
 
-  
+    
+     const handleCart = () => {
+       navigate("/cart");
+    
+    };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -89,10 +93,15 @@ function Navbar() {
          </Box>
         
            
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{  flexGrow: 0 }} gap={4} display= 'flex' flexDirection='row'  alignItems='center' justifyContent='center'>
+              <IconButton aria-label="cart" onClick= {handleCart}>
+            <Badge badgeContent={4} color="secondary">
+               <ShoppingCart  sx={{colors: "#ffffff"}}/>
+             </Badge>
+           </IconButton>
            {isAuthenticated ? <> 
               <Tooltip title="Open settings">
-              <Grid  container alignItems="center" justifyContent="center" gap={2}> 
+              <Grid  container alignItems="center" justifyContent="center" gap={2} > 
                 <Grid item> 
               <Typography>{username} </Typography>
               </Grid>
