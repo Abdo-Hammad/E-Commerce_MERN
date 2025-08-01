@@ -37,13 +37,15 @@ import { useAuth } from "../Auth/AuthContext";
 
    const cart = await response.json();
    const CartItemsMapped  = cart .items.map(
-    ({ product, quantity }:{ product: any; quantity: number }) => ({
+    ({ product, quantity,  unitPrice }:{ product: any; quantity: number; unitPrice:number }) => ({
          productId: product._id,
          title: product.title, 
          image: product.image, quantity, 
-         unitPrice: product.unitPrice})
+         unitPrice, 
+    })
         );
   setCartItems(CartItemsMapped);
+  setTotalAmount(cart.totalAmount)
   };
     
   fetchCart();
