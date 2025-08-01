@@ -81,6 +81,47 @@ import { useAuth } from "../Auth/AuthContext";
     setError("Failed to parse cart data");
 }  
 const CartItemsMapped  = cart .items.map(
+    ({ product, quantity, unitPrice }:{ product: any; quantity: number, unitPrice: number }) => ({
+         productId: product._id,
+         title: product.title, 
+         image: product.image, quantity, 
+         unitPrice,
+        })
+        );
+ 
+   setCartItems([...CartItemsMapped ]);
+   setTotalAmount(cart.totalAmount)
+  } catch (error){
+
+   console.error(error)
+}
+};
+ 
+ const updeteItemInCart = async (productId: string, quantity: number) => {
+    try {
+   
+      const response = await fetch ('${BASE_URL}/cart/items',{
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ${token}',
+         },
+
+       body: JSON.stringify({ 
+        productId,
+        quantity,
+  }),
+});
+
+  if(!response.ok) {
+      setError('Failed to update to cart');
+
+  }
+     const cart = await response.json();
+    if (!cart) {
+    setError("Failed to parse cart data");
+}  
+const CartItemsMapped  = cart .items.map(
     ({ product, quantity }:{ product: any; quantity: number }) => ({
          productId: product._id,
          title: product.title, 
@@ -94,15 +135,13 @@ const CartItemsMapped  = cart .items.map(
 
    console.error(error)
 }
-};
- 
-
+ }
          
 
      return (
 
          <CartContext.Provider 
-         value={{ cartItems, totalAmount,  addItemToCart }}
+         value={{ cartItems, totalAmount,  addItemToCart, updeteItemInCart }}
          >
           {children}
         </CartContext.Provider>
