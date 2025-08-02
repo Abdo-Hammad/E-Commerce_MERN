@@ -1,10 +1,11 @@
 import { Box, Container, Typography } from "@mui/material";
  import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import { useCart } from "../context/Cart/CartContext";
     
     const CartPage = () => {
        
-      const { cartItems, totalAmount, updateItemInCart, removeItemInCart } = useCart(); 
+      const { cartItems, totalAmount, updateItemInCart, removeItemInCart,  clearCart } = useCart(); 
        
    const handleQuantity=(productId: string, quantity: number) => {
      if (quantity <=0) {
@@ -23,11 +24,18 @@ const  handleRemoveItem = (productId: string) => {
         throw new Error("Function not implemented.");
       }
 
+      
+
 return ( 
     
    <Container fixed sx={{ mt: 2 }}>
-    <Typography variant="h4">My Cart </Typography>
-     <Box gap={4} display='flex' flexDirection="column"> 
+    <Box display='flex' flexDirection='row' justifyContent='space-between' sx={{mb: 2}}>
+       <Typography variant="h4">My Cart </Typography>
+        <Button onClick={() => clearCart()}>Clear Cart</Button>
+    </Box>
+     
+    {cartItems.length ? 
+    <Box gap={4} display='flex' flexDirection="column"> 
     {cartItems.map((item) => (
          <Box
           
@@ -62,7 +70,11 @@ return (
          <Box>
             <Typography variant="h4">Total Amount: {totalAmount.toFi} EGP</Typography>
         </Box>
-        </Box>
+        </Box>:  (
+        <Typography>
+          Cart is empty. Please start shopping and add items first.
+        </Typography>
+         )}
    </Container>
    
  );

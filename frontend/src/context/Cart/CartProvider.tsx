@@ -173,14 +173,47 @@ const CartItemsMapped  = cart .items.map(
 
    console.error(error)
 }
-  }
+  };
+
+
  
-         
+    const clearCart = async () => {
+
+   try {
+   
+      const response = await fetch ('${BASE_URL}/cart}',{
+        method: "PUT",
+        headers: {
+          
+          Authorization: 'Bearer ${token}',
+         },
+
+        
+});
+
+  if(!response.ok) {
+      setError('Failed to ampty to cart');
+
+  }
+     const cart = await response.json();
+    if (!cart) {
+    setError("Failed to parse cart data");
+}  
+ 
+ 
+   setCartItems([ ]);
+   setTotalAmount(0)
+  } catch (error){
+
+   console.error(error)
+}
+
+}     
 
      return (
 
          <CartContext.Provider 
-         value={{ cartItems, totalAmount,  addItemToCart, updeteItemInCart, removeItemInCart }}
+         value={{ cartItems, totalAmount,  addItemToCart, updeteItemInCart, removeItemInCart, clearCart  }}
          >
           {children}
         </CartContext.Provider>
