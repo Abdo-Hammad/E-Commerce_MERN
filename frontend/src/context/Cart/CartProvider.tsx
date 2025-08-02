@@ -101,7 +101,7 @@ const CartItemsMapped  = cart .items.map(
     try {
    
       const response = await fetch ('${BASE_URL}/cart/items',{
-        method: "PUT",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: 'Bearer ${token}',
@@ -136,12 +136,51 @@ const CartItemsMapped  = cart .items.map(
    console.error(error)
 }
  }
+  const removeItemInCart = async (productId: string) => {
+
+
+      try {
+   
+      const response = await fetch ('${BASE_URL}/cart/items/${productId}',{
+        method: "PUT",
+        headers: {
+          
+          Authorization: 'Bearer ${token}',
+         },
+
+        
+});
+
+  if(!response.ok) {
+      setError('Failed to dalet to cart');
+
+  }
+     const cart = await response.json();
+    if (!cart) {
+    setError("Failed to parse cart data");
+}  
+const CartItemsMapped  = cart .items.map(
+    ({ product, quantity }:{ product: any; quantity: number }) => ({
+         productId: product._id,
+         title: product.title, 
+         image: product.image, quantity, 
+         unitPrice: product.unitPrice})
+        );
+ 
+   setCartItems([...CartItemsMapped ]);
+   setTotalAmount(cart.totalAmount)
+  } catch (error){
+
+   console.error(error)
+}
+  }
+ 
          
 
      return (
 
          <CartContext.Provider 
-         value={{ cartItems, totalAmount,  addItemToCart, updeteItemInCart }}
+         value={{ cartItems, totalAmount,  addItemToCart, updeteItemInCart, removeItemInCart }}
          >
           {children}
         </CartContext.Provider>

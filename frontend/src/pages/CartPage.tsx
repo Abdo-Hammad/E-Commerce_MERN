@@ -4,7 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
     
     const CartPage = () => {
        
-      const { cartItems, totalAmount, updateItemInCart } = useCart(); 
+      const { cartItems, totalAmount, updateItemInCart, removeItemInCart } = useCart(); 
        
    const handleQuantity=(productId: string, quantity: number) => {
      if (quantity <=0) {
@@ -15,7 +15,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 }
 
 const  handleRemoveItem = (productId: string) => {
-    deleteItemInCart()
+    removeItemInCart     ()
   }
 
  

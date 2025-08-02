@@ -7,6 +7,7 @@ import type { CartItem } from "../../types/Cartitem";
      totalAmount: number;
         addTtiemToCart: (productId: string) => void;
           updateItemInCart: (productId: string, quantity: number) => void
+          removeItemInCart: (productId: string ) => void
    }
 
   export const CartContext = createContext<CartContextType>(
@@ -14,6 +15,7 @@ import type { CartItem } from "../../types/Cartitem";
        cartItems: [],
      totalAmount: 0 ,
       addTtiemToCart: () => {} ,
-      updateItemInCart: () => {}
+      updateItemInCart: () => {},
+      removeItemInCart: () => {}
     }) 
   export const useCart = () => useContext(CartContext);
